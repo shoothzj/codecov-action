@@ -3,6 +3,7 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 
+import {setFailure} from './helpers';
 
 const context = github.context;
 
@@ -44,6 +45,13 @@ const buildCommitExec = () => {
   if (token) {
     commitOptions.env.CODECOV_TOKEN = token;
   }
+  if (!commitOptions.env.CODECOV_TOKEN) {
+    setFailure(
+        `Codecov: No token found. Please update with the repository token. For instructions, please see https://docs.codecov.com/docs/adding-the-codecov-token#github-actions.`,
+        true,
+    );
+  }
+
   if (commitParent) {
     commitExecArgs.push('--parent-sha', `${commitParent}`);
   }
