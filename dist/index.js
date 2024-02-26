@@ -32678,7 +32678,7 @@ const verify = (filename, platform, version, verbose, failCi) => validate_awaite
                 external_path_.join(__dirname, `${uploaderName}.SHA256SUM`),
             ], (err, verifyResult) => validate_awaiter(void 0, void 0, void 0, function* () {
                 if (err) {
-                    setFailure('Codecov: Error importing pgp key', failCi);
+                    setFailure(`Codecov: Error importing pgp key: ${err.message}`, failCi);
                 }
                 core.info(verifyResult);
                 yield validateSha();
@@ -32693,7 +32693,7 @@ const verify = (filename, platform, version, verbose, failCi) => validate_awaite
             __nccwpck_require__.ab + "pgp_keys.asc",
         ], (err, importResult) => validate_awaiter(void 0, void 0, void 0, function* () {
             if (err) {
-                setFailure('Codecov: Error importing pgp key', failCi);
+                setFailure(`Codecov: Error importing pgp key: ${err.message}`, failCi);
             }
             core.info(importResult);
             verifySignature();
